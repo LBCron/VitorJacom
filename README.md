@@ -59,8 +59,8 @@ Engenheiro de Software com foco em sistemas distribuídos de alta resiliência, 
     <td width="50%" valign="top">
       <h4>🤖 Engenharia Agêntica & Qualidade</h4>
       <ul>
-        <li><b>Frameworks de IA:</b> AIDD Harness, Model Context Protocol (MCP), Sandboxing com Git Worktrees</li>
-        <li><b>Governança Determinística:</b> SHA-256 Drift Detection para contratos de API, Test Tamper Guard</li>
+        <li><b>Frameworks & Orquestração de IA:</b> AIDD Framework, Orquestração Multiagente, Model Context Protocol (MCP)</li>
+        <li><b>Governança Determinística:</b> Máquinas de Estados, Test Tamper Guard, Protocolo TDD Isolado</li>
         <li><b>Qualidade de Software:</b> TDD (Test-Driven Development), Vitest, React Testing Library, JUnit 5</li>
       </ul>
     </td>
@@ -78,9 +78,9 @@ Engenheiro de Software com foco em sistemas distribuídos de alta resiliência, 
 * **Acesse online:** [chorarival.com.br](https://chorarival.com.br)
 
 ### 2. [my-agents](https://github.com/VitorJacom/my-agents)
-*Harness de engenharia e governança determinística para desenvolvimento de software com agentes de IA autônomos.*
-* **Arquitetura:** CLI e TUI com sandboxing estrito via Git Worktrees para execução isolada de tarefas.
-* **Segurança & Governança:** Mecanismo anti-fraude *Test Tamper Guard* (zero adulteração de testes), verificação de drift de contratos OpenAPI e validações automáticas de compliance arquitetural.
+*Framework de orquestração determinística e governança para agentes autônomos de desenvolvimento (Manifesto AIDD).*
+* **Orquestração Multiagente:** Pipeline determinístico operando por máquina de estados com papéis especializados (Planner, QA Engineer, Coder, Gatekeeper).
+* **Governança & Anti-Fraude:** Proteção ativa com *Test Tamper Guard* (zero adulteração de suítes de testes), contratos rígidos via ciclo de vida efêmero (task.md/implementation_plan.md) e auditoria contínua de conformidade arquitetural.
 
 ### 3. [MeditAmamente](https://github.com/VitorJacom/meditamamente)
 *Plataforma de pesquisa clínica e acolhimento materno desenvolvida na PUCRS (Destaque Acadêmico 2024).*
@@ -88,9 +88,9 @@ Engenheiro de Software com foco em sistemas distribuídos de alta resiliência, 
 * **Persistência & Segurança:** Modelagem relacional em PostgreSQL gerenciada com Spring Data JPA, autenticação segura com JWT e documentação OpenAPI.
 
 ### 4. [Lucky Draw](https://github.com/VitorJacom/lucky-draw)
-*Aplicação móvel e gamificada orientada ao desbloqueio criativo com cartas de tarô.*
-* **Infraestrutura Serverless:** API distribuída e escalável construída na AWS (AWS Lambda, Aurora PostgreSQL Serverless, Amazon S3).
-* **Engenharia:** Autenticação stateless via tokens JWT, pipelines contínuos de entrega com containers Docker e automação de testes via GitHub Actions.
+*Aplicação móvel gamificada para desbloqueio criativo de artistas através de cartas de tarô.*
+* **Liderança de Backend & Arquitetura Serverless:** Liderança técnica do backend e cloud na AGES, projetando API cloud-native em Java 17 e Spring Boot 3.4 sobre AWS Lambda, Amazon S3 e banco relacional PostgreSQL.
+* **Segurança & DevOps:** Autenticação stateless com Spring Security e tokens JWT, pipelines de entrega contínua (GitLab CI/CD) orquestrados com Docker e testes automatizados com JUnit 5 e Mockito.
 
 ---
 
