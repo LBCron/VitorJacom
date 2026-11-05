@@ -32,6 +32,36 @@ export const projects: ProjectItem[] = [
     githubUrl: 'https://github.com/VitorJacom/my-agents',
   },
   {
+    id: 'estudify',
+    title: 'Estudify',
+    tagline: 'Plataforma mobile de gestão de estudos e cronogramas acadêmicos dinâmicos desenvolvida na AGES.',
+    category: 'mobile',
+    metrics: [
+      'Liderança técnica de 18 desenvolvedores organizados em 4 squads ágeis',
+      'Redução de -98% no consumo de memória gráfica em dispositivos móveis',
+      'Suíte determinística de testes E2E com Maestro e esteira contínua de CI/CD',
+    ],
+    techStack: ['React Native', 'TypeScript', 'Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Maestro'],
+    architectureHighlights:
+      'Arquitetura mobile reativa com algoritmo dinâmico de redistribuição de horas de estudo e pipeline de cache otimizado para alta performance.',
+    githubUrl: 'https://github.com/VitorJacom/estudify',
+  },
+  {
+    id: 'globo-aplausos',
+    title: 'Globo Aplausos',
+    tagline: 'Painel corporativo de engajamento e reconhecimento mútuo entre colaboradores em parceria com a Globo.',
+    category: 'enterprise',
+    metrics: [
+      'Desenvolvido em parceria institucional de inovação com a Globo na AGES',
+      'Processamento atômico e concorrente de contagem de aplausos em tempo real',
+      'Design modular baseado em Clean Architecture desacoplando regras corporativas',
+    ],
+    techStack: ['Java', 'Spring Boot', 'React', 'TypeScript', 'PostgreSQL', 'Docker', 'Tailwind CSS'],
+    architectureHighlights:
+      'Painel corporativo de reconhecimento entre pares com feedback reativo imediato, contador concorrente thread-safe e arquitetura escalável para grandes equipes.',
+    githubUrl: 'https://github.com/VitorJacom/globo-aplausos',
+  },
+  {
     id: 'meditamamente',
     title: 'MeditAmamente',
     tagline: 'Plataforma de pesquisa clínica e acolhimento materno desenvolvida na PUCRS.',

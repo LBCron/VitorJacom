@@ -134,9 +134,23 @@ describe('Canonical Data Contracts (Acceptance Tests)', () => {
   describe('Projects Dataset (site/src/data/projects.ts)', () => {
     const validCategories = ['saas', 'cloud', 'mobile', 'enterprise'] as const;
 
-    it('happy case: should contain the 4 flagship projects with all required metadata', () => {
+    it('happy case: should contain the 6 canonical projects with all required metadata', () => {
       expect(Array.isArray(projects)).toBe(true);
-      expect(projects.length).toBeGreaterThanOrEqual(4);
+      expect(projects.length).toBeGreaterThanOrEqual(6);
+
+      const requiredProjectIds = [
+        'chora-rival',
+        'my-agents',
+        'estudify',
+        'globo-aplausos',
+        'meditamamente',
+        'lucky-draw',
+      ];
+
+      for (const requiredId of requiredProjectIds) {
+        const found = projects.find((p) => p.id === requiredId);
+        expect(found, `Project with id "${requiredId}" must exist in canonical projects dataset`).toBeDefined();
+      }
 
       for (const project of projects) {
         expect(typeof project.id).toBe('string');
