@@ -6,6 +6,8 @@ walkthrough.md
 # Dependencies & Build Artefacts
 node_modules/
 dist/
+coverage/
+site/coverage/
 .agents/
 *.log
 
