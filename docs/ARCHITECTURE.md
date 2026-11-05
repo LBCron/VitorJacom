@@ -223,6 +223,10 @@ export interface SkillItemResponse {
 
 ## 4. Estratégia de Qualidade e TDD
 
+- **Diretrizes Mandatórias de Cobertura e Provas:**
+  - **Code Coverage >= 85%**: Todas as suítes de testes de frontend e MCP devem manter cobertura mínima de 85% em linhas, branches, funções e statements.
+  - **Happy & Edge Cases**: Todo módulo sob teste deve possuir especificação de casos de sucesso (Happy Cases) e casos de exceção/borda/valores nulos (Edge Cases), com logs registrados no relatório de entrega.
+  - **Prova Visual de Front-End**: Qualquer entrega envolvendo telas ou componentes React exige a captura de screenshots renderizados, anexados diretamente no PR.
 - **Camadas de Testes:**
   - `site/tests/components/`: Testes de componentes visuais básicos (Hero, Navbar com links, Timeline, SkillsMatrix).
   - `site/tests/demos/`: Testes determinísticos das 4 demos AGES (cálculo de horas no Estudify, flip de carta no Lucky Draw, transição de estado de respiração no MeditAmamente, incremento de aplausos no Globo Aplausos e expansão do painel "Sob o Capô").

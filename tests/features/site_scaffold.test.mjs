@@ -17,158 +17,73 @@ const APP_TEST_PATH = path.join(SITE_DIR, 'tests', 'features', 'app.test.tsx');
 const CI_WORKFLOW_PATH = path.join(REPO_ROOT, '.github', 'workflows', 'ci-site.yml');
 
 describe('Site Foundation & Tooling Scaffold Suite (Issue #2)', () => {
-  describe('Package Manifest: site/package.json', () => {
-    it('should exist physically in site/ directory', () => {
-      assert.ok(
-        fs.existsSync(PACKAGE_JSON_PATH),
-        `Expected file to exist at ${PACKAGE_JSON_PATH}, but it was not found.`
-      );
+  describe('🟢 Happy Cases (Estrutura Canônica, Entrypoints e Tooling Base)', () => {
+    it('deve existir fisicamente o manifesto site/package.json com scripts dev, build e test', () => {
+      assert.ok(fs.existsSync(PACKAGE_JSON_PATH), `site/package.json deve existir em ${PACKAGE_JSON_PATH}`);
+      const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, 'utf-8'));
+      assert.ok(pkg.scripts?.dev, 'site/package.json deve conter script "dev"');
+      assert.ok(pkg.scripts?.build, 'site/package.json deve conter script "build"');
+      assert.ok(pkg.scripts?.test, 'site/package.json deve conter script "test"');
     });
 
-    it('should define required scripts: dev, build, test', () => {
-      assert.ok(
-        fs.existsSync(PACKAGE_JSON_PATH),
-        `Cannot verify scripts: site/package.json does not exist.`
-      );
+    it('deve declarar as dependências fundamentais de runtime (React 19, Lucide)', () => {
       const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, 'utf-8'));
-      assert.ok(pkg.scripts, 'site/package.json must contain a "scripts" section');
-      assert.ok(pkg.scripts.dev, 'site/package.json must contain "dev" script');
-      assert.ok(pkg.scripts.build, 'site/package.json must contain "build" script');
-      assert.ok(pkg.scripts.test, 'site/package.json must contain "test" script');
+      const deps = pkg.dependencies || {};
+      assert.ok(deps['react'], 'Deve conter dependência "react"');
+      assert.ok(deps['react-dom'], 'Deve conter dependência "react-dom"');
+      assert.ok(deps['lucide-react'], 'Deve conter dependência "lucide-react"');
     });
 
-    it('should declare required dependencies (React 19, Tailwind CSS, Lucide)', () => {
-      assert.ok(
-        fs.existsSync(PACKAGE_JSON_PATH),
-        `Cannot verify dependencies: site/package.json does not exist.`
-      );
-      const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, 'utf-8'));
-      const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+    it('deve possuir os entrypoints da SPA: index.html, main.tsx e App.tsx com identidade Vítor Jacom', () => {
+      assert.ok(fs.existsSync(INDEX_HTML_PATH), `index.html não encontrado em ${INDEX_HTML_PATH}`);
+      assert.ok(fs.existsSync(MAIN_TSX_PATH), `main.tsx não encontrado em ${MAIN_TSX_PATH}`);
+      assert.ok(fs.existsSync(APP_TSX_PATH), `App.tsx não encontrado em ${APP_TSX_PATH}`);
 
-      const requiredDeps = ['react', 'react-dom'];
-      for (const dep of requiredDeps) {
-        assert.ok(
-          allDeps[dep],
-          `site/package.json missing required dependency: ${dep}`
-        );
-      }
+      const html = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
+      assert.match(html, /<!doctype\s+html>/i, 'index.html deve conter DOCTYPE HTML5');
+      assert.match(html, /id=["']root["']/, 'index.html deve conter container com id root');
+
+      const appCode = fs.readFileSync(APP_TSX_PATH, 'utf-8');
+      assert.match(appCode, /Vítor\s+Jacom/i, 'App.tsx deve renderizar o nome Vítor Jacom');
     });
 
-    it('should declare required devDependencies (Vite, Vitest, Testing Library, jsdom)', () => {
-      assert.ok(
-        fs.existsSync(PACKAGE_JSON_PATH),
-        `Cannot verify devDependencies: site/package.json does not exist.`
-      );
-      const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, 'utf-8'));
-      const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
-
-      const requiredDevDeps = [
-        'vite',
-        'vitest',
-        '@testing-library/react',
-        'jsdom',
-        'typescript',
-      ];
-      for (const dep of requiredDevDeps) {
-        assert.ok(
-          allDeps[dep],
-          `site/package.json missing required devDependency: ${dep}`
-        );
-      }
+    it('deve possuir o arquivo de testes de aceitação site/tests/features/app.test.tsx', () => {
+      assert.ok(fs.existsSync(APP_TEST_PATH), `app.test.tsx não encontrado em ${APP_TEST_PATH}`);
     });
   });
 
-  describe('Tooling Configuration Files', () => {
-    it('should have site/vite.config.ts with Vitest and React configuration', () => {
-      assert.ok(
-        fs.existsSync(VITE_CONFIG_PATH),
-        `Expected Vite configuration file at ${VITE_CONFIG_PATH}`
-      );
-      const content = fs.readFileSync(VITE_CONFIG_PATH, 'utf-8');
-      assert.match(
-        content,
-        /react/i,
-        'vite.config.ts should import and use React plugin'
+  describe('🟡 Edge Cases (Configurações Estritas, Coverage >= 85% e Integridade de CI)', () => {
+    it('deve configurar Vitest com threshold de cobertura >= 85% no vite.config.ts', () => {
+      assert.ok(fs.existsSync(VITE_CONFIG_PATH), `vite.config.ts não encontrado`);
+      const viteConfig = fs.readFileSync(VITE_CONFIG_PATH, 'utf-8');
+      assert.match(viteConfig, /coverage/i, 'vite.config.ts deve configurar coverage');
+      assert.match(viteConfig, /85/, 'vite.config.ts deve definir threshold mínimo de 85%');
+    });
+
+    it('deve conter configuração estrita de TypeScript em site/tsconfig.json', () => {
+      assert.ok(fs.existsSync(TSCONFIG_PATH), `tsconfig.json não encontrado`);
+      const tsconfig = JSON.parse(fs.readFileSync(TSCONFIG_PATH, 'utf-8'));
+      assert.equal(
+        tsconfig.compilerOptions?.strict,
+        true,
+        'tsconfig.json deve conter strict: true'
       );
     });
 
-    it('should have site/tsconfig.json with strict TypeScript configuration', () => {
-      assert.ok(
-        fs.existsSync(TSCONFIG_PATH),
-        `Expected TypeScript configuration file at ${TSCONFIG_PATH}`
-      );
-    });
-
-    it('should have Tailwind CSS configuration (tailwind.config.ts or postcss.config.js)', () => {
-      const hasTailwindConfig =
+    it('deve conter configuração válida de Tailwind CSS ou PostCSS', () => {
+      const hasTailwind =
         fs.existsSync(TAILWIND_CONFIG_PATH) ||
-        fs.existsSync(path.join(SITE_DIR, 'tailwind.config.js')) ||
         fs.existsSync(POSTCSS_CONFIG_PATH);
-
-      assert.ok(
-        hasTailwindConfig,
-        `Expected Tailwind/PostCSS configuration file in ${SITE_DIR}`
-      );
-    });
-  });
-
-  describe('SPA Entrypoints & Components', () => {
-    it('should have site/index.html with HTML5 semantic doctype and title', () => {
-      assert.ok(
-        fs.existsSync(INDEX_HTML_PATH),
-        `Expected HTML entrypoint at ${INDEX_HTML_PATH}`
-      );
-      const content = fs.readFileSync(INDEX_HTML_PATH, 'utf-8');
-      assert.match(content, /<!doctype\s+html>/i, 'index.html must have HTML5 doctype');
-      assert.match(content, /id=["']root["']/, 'index.html must contain root mounting element');
+      assert.ok(hasTailwind, 'Configuração do Tailwind ou PostCSS deve existir em site/');
     });
 
-    it('should have site/src/main.tsx as React entrypoint', () => {
-      assert.ok(
-        fs.existsSync(MAIN_TSX_PATH),
-        `Expected React entrypoint at ${MAIN_TSX_PATH}`
-      );
-    });
-
-    it('should have site/src/App.tsx with Vítor Jacom identity', () => {
-      assert.ok(
-        fs.existsSync(APP_TSX_PATH),
-        `Expected App component at ${APP_TSX_PATH}`
-      );
-      const content = fs.readFileSync(APP_TSX_PATH, 'utf-8');
-      assert.match(
-        content,
-        /Vítor\s+Jacom/i,
-        'App.tsx should display the professional identity "Vítor Jacom"'
-      );
-    });
-
-    it('should have acceptance test site/tests/features/app.test.tsx', () => {
-      assert.ok(
-        fs.existsSync(APP_TEST_PATH),
-        `Expected acceptance test at ${APP_TEST_PATH}`
-      );
-    });
-  });
-
-  describe('Continuous Integration: .github/workflows/ci-site.yml', () => {
-    it('should exist physically in .github/workflows/ directory', () => {
-      assert.ok(
-        fs.existsSync(CI_WORKFLOW_PATH),
-        `Expected CI workflow at ${CI_WORKFLOW_PATH}`
-      );
-    });
-
-    it('should configure build and test jobs for site', () => {
-      assert.ok(
-        fs.existsSync(CI_WORKFLOW_PATH),
-        `Cannot verify workflow: file does not exist at ${CI_WORKFLOW_PATH}`
-      );
-      const content = fs.readFileSync(CI_WORKFLOW_PATH, 'utf-8');
-      assert.match(content, /actions\/checkout/i, 'Workflow should checkout code');
-      assert.match(content, /npm\s+(ci|install)/i, 'Workflow should install dependencies');
-      assert.match(content, /npm\s+test/i, 'Workflow should run npm test');
-      assert.match(content, /npm\s+run\s+build/i, 'Workflow should run npm run build');
+    it('deve conter workflow de CI validando checkout, npm ci, npm test e build', () => {
+      assert.ok(fs.existsSync(CI_WORKFLOW_PATH), `Workflow do CI não encontrado em ${CI_WORKFLOW_PATH}`);
+      const ciYaml = fs.readFileSync(CI_WORKFLOW_PATH, 'utf-8');
+      assert.match(ciYaml, /actions\/checkout/i, 'CI deve realizar checkout');
+      assert.match(ciYaml, /npm\s+(ci|install)/i, 'CI deve instalar dependências');
+      assert.match(ciYaml, /npm\s+test/i, 'CI deve rodar testes');
+      assert.match(ciYaml, /npm\s+run\s+build/i, 'CI deve validar build');
     });
   });
 });

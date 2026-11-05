@@ -33,6 +33,10 @@ Repositório especial de perfil do GitHub (`VitorJacom/VitorJacom`) contendo a i
 - **Testes:** Vitest, React Testing Library, jsdom
 - **CI/CD & Hosting:** GitHub Actions (`actions/deploy-pages`), GitHub Pages (Custo Zero / Scale-to-Zero)
 - **Estilo & Governança:** Conventional Commits, TDD estrito, Atomic Issues (max 3 passos por issue AIDD)
+- **Regras Mandatórias de Qualidade e Governança:**
+  - **Code Coverage Mínimo:** 85% obrigatório em todas as suítes (linhas, statements, funções e branches).
+  - **Happy & Edge Cases:** Testes automatizados cobrindo explicitamente fluxos ideais e casos de borda/erro com logs anexados ao PR.
+  - **Prova Visual em Front-end:** Screenshots/prints das interfaces renderizadas anexados obrigatoriamente no corpo do Pull Request (`walkthrough.md`).
 
 ---
 *Orientações*: Proibido varrer o repositório cegamente. Respeite as estruturas canônicas e as regras do Duplo Gate.
