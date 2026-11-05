@@ -12,6 +12,7 @@ Repositório especial de perfil do GitHub (`VitorJacom/VitorJacom`) contendo a i
 
 ## 🏗️ Estrutura do Repositório
 
+- `AGENTS.md`: Diretrizes canônicas de qualidade, cobertura (>= 85%), testes (happy/edge) e provas visuais (prints e vídeos).
 - `README.md`: GitHub Profile README renderizado publicamente em `github.com/VitorJacom`.
 - `main.pdf`: Currículo profissional canônico atualizado.
 - `vitor.jpg`: Foto em alta resolução original.
