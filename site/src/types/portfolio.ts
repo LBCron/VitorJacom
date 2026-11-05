@@ -17,8 +17,6 @@ export interface SkillItem {
 }
 
 export interface SkillCategory {
-  id?: string;
-  title?: string;
   category: string;
   skills: SkillItem[];
 }

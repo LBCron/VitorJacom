@@ -26,9 +26,19 @@ describe('Canonical Data Contracts (Acceptance Tests)', () => {
   });
 
   describe('Experience Dataset (site/src/data/experience.ts)', () => {
-    it('happy case: should contain at least 3 career entries with all required fields', () => {
+    it('happy case: should contain the 4 canonical career/academic entries from main.pdf with all required fields', () => {
       expect(Array.isArray(experiences)).toBe(true);
-      expect(experiences.length).toBeGreaterThanOrEqual(3);
+      expect(experiences.length).toBeGreaterThanOrEqual(4);
+
+      const requiredExperienceIds = [
+        'autonomo-saas-consultoria',
+        'tecnova-energia',
+        'ages-pucrs',
+        'academico-pucrs',
+      ];
+      for (const reqId of requiredExperienceIds) {
+        expect(experiences.find((e) => e.id === reqId)).toBeDefined();
+      }
 
       for (const exp of experiences) {
         expect(exp.id).toBeDefined();
@@ -152,6 +162,17 @@ describe('Canonical Data Contracts (Acceptance Tests)', () => {
         expect(found, `Project with id "${requiredId}" must exist in canonical projects dataset`).toBeDefined();
       }
 
+      const estudify = projects.find((p) => p.id === 'estudify')!;
+      expect(estudify.techStack).toContain('NestJS');
+      expect(estudify.techStack).toContain('Prisma ORM');
+      expect(estudify.techStack).not.toContain('Spring Boot');
+
+      const globoAplausos = projects.find((p) => p.id === 'globo-aplausos')!;
+      expect(globoAplausos.techStack).toContain('Next.js');
+      expect(globoAplausos.techStack).toContain('NestJS');
+      expect(globoAplausos.techStack).toContain('MySQL');
+      expect(globoAplausos.techStack).not.toContain('Spring Boot');
+
       for (const project of projects) {
         expect(typeof project.id).toBe('string');
         expect(project.id.trim().length).toBeGreaterThan(0);
@@ -220,7 +241,7 @@ describe('Canonical Data Contracts (Acceptance Tests)', () => {
       const ghCert = certifications.find((c) => c.code.includes('GH-900') || c.name.includes('GitHub Foundations'));
       expect(ghCert).toBeDefined();
       expect(ghCert!.issuer).toBe('GitHub');
-      expect(ghCert!.year).toBeGreaterThanOrEqual(2024);
+      expect(ghCert!.year).toBe(2026);
       expect(typeof ghCert!.verificationUrl).toBe('string');
     });
 
