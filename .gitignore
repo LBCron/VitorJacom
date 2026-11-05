@@ -1,0 +1,14 @@
+# AIDD Ephemeral Lifecycle Files (Mandatory)
+task.md
+implementation_plan.md
+walkthrough.md
+
+# Dependencies & Build Artefacts
+node_modules/
+dist/
+.agents/
+*.log
+
+# OS Metadata
+.DS_Store
+Thumbs.db
